@@ -4,7 +4,7 @@ library(readxl)
 
 
 #Reading in the data
-dta <- read_excel("/Users/roygbiv/Dropbox/Grad School/Independent Research/Homelessness/Projects/Thesis/Working Data/(2009 - 2018) Agg Master + Treatment Groups + Time-invariant Controls.xlsx")
+dta <- read_excel("/Users/roygbiv/Dropbox/Grad School/Independent Research/Homelessness/Projects/Thesis/Working Data/(2007 - 2020) Agg Master Minimal + Treatment Groups + Time-invariant Controls.xlsx")
 
 # distinguish groups by year of treatment
 table(dta$first_treated)
@@ -20,7 +20,7 @@ out1 <- att_gt(yname = "overall_homeless_per10k",
                         #Commenting out the control variables
                         #xformla = ~X,
                         data = dta,
-                        #control_group = "never treated"
+                        control_group = "notyettreated"
 )
 
 # summarize the results
@@ -40,5 +40,5 @@ aggout <- aggte(
   biters = NULL, 
   cband = NULL, 
   alp = NULL,
-  clustervars == "state"
+  clustervars == "state",
 )
