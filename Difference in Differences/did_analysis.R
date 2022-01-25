@@ -31,7 +31,7 @@ pre.test <- conditional_did_pretest(yname="overall_homeless_per10k",
 summary(pre.test)
 }
 
-# estimate group-time average treatment effects using att_gt method
+# Estimate group-time average treatment effects
 out1 <- att_gt(yname = "overall_homeless_per10k",
                         tname = "year",
                         gname = "first_treated",
@@ -48,6 +48,25 @@ out1 <- att_gt(yname = "overall_homeless_per10k",
 # summarize the results
 summary(out1)
 ggdid(out1) #graphing
+
+# aggregate the group-time average treatment effects
+aggout <- aggte(
+  out1,
+  type = "dynamic",
+  # balance_e = NULL,
+  # min_e = -Inf,
+  # max_e = Inf,
+  na.rm = TRUE,
+  # bstrap = NULL,
+  # biters = NULL,
+  # cband = NULL,
+  # alp = NULL,
+  # the below line is returning errors 'undefined columns selected'
+  # clustervars = "state"
+)
+
+summary(aggout)
+ggdid(aggout)
 
 # Storing DID parameters
 # DIDparams(
@@ -105,17 +124,4 @@ ggdid(out1) #graphing
 #   cores = 1
 # )
 
-# # aggregate the group-time average treatment effects
-# aggout <- aggte(
-#   out1,
-#   type = "dynamic",
-#   balance_e = NULL, 
-#   min_e = -Inf,
-#   max_e = Inf,
-#   na.rm = FALSE,
-#   bstrap = NULL, 
-#   biters = NULL, 
-#   cband = NULL, 
-#   alp = NULL,
-#   clustervars == "state",
-# )
+
