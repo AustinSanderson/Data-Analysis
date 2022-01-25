@@ -17,12 +17,26 @@ table(dta$first_treated)
 # converting the id variable to numeric
 dta$CoC_number <- as.numeric(as.character(dta$CoC_number))
 
+# Checking the parallel trends assumption
+if (FALSE) {
+data(dta)
+pre.test <- conditional_did_pretest(yname="overall_homeless_per10k",
+                                    tname="year",
+                                    idname="CoC_number",
+                                    gname="first_treated",
+                                    xformla=~pop_dens + avg_low_temp_cnty_avg,
+                                    # Commenting out additional controls for testing
+                                    # total_jail_adm_per10k + total_jail_dis_per10k + total_prison_pop_per10k + total_prison_adm_per10k + med_rent+median_household_income,
+                                    data=dta)
+summary(pre.test)
+}
+
 # estimate group-time average treatment effects using att_gt method
 out1 <- att_gt(yname = "overall_homeless_per10k",
                         tname = "year",
                         gname = "first_treated",
                         idname = "CoC_number",
-                        #xformla=~pop_dens + avg_low_temp_cnty_avg,
+                        xformla=~pop_dens + avg_low_temp_cnty_avg,
                         # Commenting out additional controls for testing
                         # total_jail_pop_per10k + all_ages_in_poverty_percent_cnty_avg + shelter_beds_per10k 
                         # total_jail_adm_per10k + total_jail_dis_per10k + total_prison_pop_per10k + total_prison_adm_per10k + med_rent + median_household_income,
@@ -66,19 +80,7 @@ ggdid(out1) #graphing
 #   call = NULL
 # )
 
-# Checking the parallel trends assumption
-# if (FALSE) {
-# data(dta)
-# pre.test <- conditional_did_pretest(yname="overall_homeless_per10k",
-#                                     tname="year",
-#                                     idname="CoC_number",
-#                                     gname="first_treated",
-#                                     #xformla=~pop_dens + all_ages_in_poverty_percent_cnty_avg + shelter_beds_per10k + total_jail_pop_per10k + avg_low_temp_cnty_avg,
-#                                     # Commenting out additional controls for testing
-#                                     # total_jail_adm_per10k + total_jail_dis_per10k + total_prison_pop_per10k + total_prison_adm_per10k + med_rent+median_household_income,
-#                                     data=dta)
-# summary(pre.test)
-# }
+
 
 # # More details on pretest parameters below
 # conditional_did_pretest(
