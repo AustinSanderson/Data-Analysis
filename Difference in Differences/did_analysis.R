@@ -24,7 +24,7 @@ pre.test <- conditional_did_pretest(yname="overall_homeless_per10k",
                                     tname="year",
                                     idname="CoC_number",
                                     gname="first_treated",
-                                    xformla=~pop_dens + avg_low_temp_cnty_avg,
+                                    xformla=~avg_low_temp_cnty_avg + total_jail_pop_per10k,
                                     # Commenting out additional controls for testing
                                     # total_jail_adm_per10k + total_jail_dis_per10k + total_prison_pop_per10k + total_prison_adm_per10k + med_rent+median_household_income,
                                     data=dta)
@@ -36,13 +36,15 @@ out1 <- att_gt(yname = "overall_homeless_per10k",
                         tname = "year",
                         gname = "first_treated",
                         idname = "CoC_number",
-                        xformla=~pop_dens + avg_low_temp_cnty_avg,
+                        xformla=~avg_low_temp_cnty_avg + total_jail_pop_per10k,
                         # Commenting out additional controls for testing
+                        # pop_dens is causing issues with group 2012; check data
+                        # all_ages_in_poverty_percent_cnty_avg + avg_low_temp_cnty_avg
                         # total_jail_pop_per10k + all_ages_in_poverty_percent_cnty_avg + shelter_beds_per10k 
                         # total_jail_adm_per10k + total_jail_dis_per10k + total_prison_pop_per10k + total_prison_adm_per10k + med_rent + median_household_income,
                         data = dta,
                         control_group = "nevertreated",
-                        allow_unbalanced_panel = FALSE, 
+                        #allow_unbalanced_panel = FALSE, 
 )
 
 # summarize the results
@@ -62,7 +64,7 @@ aggout <- aggte(
   # cband = NULL,
   # alp = NULL,
   # the below line is returning errors 'undefined columns selected'
-  # clustervars = "state"
+  # clustervars = "region_name"
 )
 
 summary(aggout)
