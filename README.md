@@ -1,3 +1,5 @@
+Currently Submitting for Publication - please reach out for more information jsande3@g.clemson.edu
+
 Methods:
 
 To analyze this time-series data, a difference-in-differences (DID) Model with Multiple Time Periods (DID-MTP) is employed to estimate the group-specific average treatment effects on homelessness where the group treatment (i.e., recreational cannabis legalization) was adopted at different times. The DID-MTP model will also estimate the treatment effects over time for all groups in the aggregate.
